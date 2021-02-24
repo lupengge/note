@@ -154,4 +154,5 @@ Transform[] ChooseSet (int numRequired) {
 }
 ```
 
-### 在scene中画线框
+### 在scene中画自定义形状能用Gizmos类和Handles类
+

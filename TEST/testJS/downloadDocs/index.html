@@ -1,0 +1,39 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>套壳文档页</title>
+  </head>
+
+  <body>
+    <iframe
+      id="docFrame"
+      src="https://120.79.88.157/unity3d_jc/"
+      style="width: 80%; height: 80%"
+    ></iframe>
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script>
+      document.domain = "www.w3cschool.cn";
+      const turndownService = new TurndownService();
+      let docFrame = document.getElementById("docFrame");
+      //turndownService.turndown(document.querySelector("#pro-mian > div.project-body > div.content-bg"))
+      function jsonToFile(str, filename = "downFile") {
+        var blob = new Blob(str, { type: "application/txt" });
+
+        var reader = new FileReader();
+        reader.addEventListener("loadend", function () {
+          var pom = document.createElement("a");
+          pom.setAttribute("href", reader.result);
+          pom.setAttribute("download", filename);
+          if (document.createEvent) {
+            var event = document.createEvent("MouseEvents");
+            event.initEvent("click", true, true);
+            pom.dispatchEvent(event);
+          } else {
+            pom.click();
+          }
+        });
+        reader.readAsDataURL(blob);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.exe
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.deps.json
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.runtimeconfig.json
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.runtimeconfig.dev.json
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.dll
+C:\Users\Administrator\source\repos\csharpEvent\bin\Debug\netcoreapp3.1\csharpEvent.pdb
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.dll
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.pdb
+C:\Users\Administrator\source\repos\csharpEvent\obj\Debug\netcoreapp3.1\csharpEvent.genruntimeconfig.cache

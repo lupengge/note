@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<style>
+		.swiper-container {
+			width: 600px;
+			background-color: beige;
+			height: 300px;
+		}
+
+		iframe {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		dialog {
+			border:0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-- Slider main container -->
+	<!-- <div class="swiper-container">
+		<!-- Additional required wrapper -->
+	<div class="swiper-wrapper">
+		<!-- Slides
+			<div class="swiper-slide">Slide 1</div>
+			<div class="swiper-slide">Slide 2</div>
+			<div class="swiper-slide">Slide 3</div>
+			...
+		</div>
+	</div> -->
+		<dialog open="">
+			<iframe sandbox="allow-forms allow-modals allow-scripts allow-same-origin allow-popups"
+				src="http://geojson.io/#map=4/39.27/98.79">
+			</iframe>
+		</dialog>
+		<!-- <script>
+		var mySwiper = new Swiper('.swiper-container', {
+			// Optional parameters
+			direction: 'vertical',
+			loop: true,
+
+			autoplay: {
+				delay: 3000,
+				stopOnLastSlide: false,
+				disableOnInteraction: false,
+				waitForTransition: false,
+		}
+		})
+	</script> -->
+	</div>
+	
+		<script>
+
+		</script>
+</body>
+
+</html>

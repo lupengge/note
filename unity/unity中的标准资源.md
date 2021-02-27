@@ -156,3 +156,86 @@ Transform[] ChooseSet (int numRequired) {
 
 ### 在scene中画自定义形状能用Gizmos类和Handles类
 
+### 两种下载texture的方法
+
+1.
+
+```c#
+using UnityEngine;
+using System.Collections;
+using UnityEngine.Networking;
+ 
+public class MyBehaviour : MonoBehaviour {
+	void Start() {
+		StartCoroutine(GetTexture());
+	}
+
+	IEnumerator GetTexture() {
+		UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://www.my-server.com/image.png");
+		yield return www.SendWebRequest();
+
+		if (www.result != UnityWebRequest.Result.Success) {
+				Debug.Log(www.error);
+		}
+		else {
+				Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+		}
+	}
+}
+```
+
+2.使用helper getter
+
+```c#
+    IEnumerator GetTexture() {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://www.my-server.com/image.png");
+            yield return www.SendWebRequest();
+
+            Texture myTexture = DownloadHandlerTexture.GetContent(www);
+        }
+```
+
+## C#中的“?”
+
+### C#在值类型后加？
+
+```c#
+DateTime? date=null;
+//等效于
+Nullable<DateTime> date=null;
+int? a =null;//等效于
+Nullable<int> a=null;
+```
+
+### C#避免因值类型为null而抛出异常
+
+1.通过if...else...语句
+
+```c#
+int result;
+if(a == null)
+{
+    result = 0;
+}
+else
+{
+    result = (int)a;
+}
+```
+
+2.同过“??”
+
+```c#
+int result = a ?? 0;
+```
+
+### C#中的数字类型、后缀u
+
+> int(32位)
+> int: –2147483648 to 2147483647 
+> uint: 0 to 4294967295 
+>
+> long(64位)
+> long: -9223372036854775808 to 9223372036854775807
+> ulong: 0 to 18446744073709551615
+

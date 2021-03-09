@@ -191,6 +191,31 @@ Transform[] ChooseSet (int numRequired) {
 }
 ```
 
+### unity设置不同屏幕适配
+
+1. 画布(canvas)中的缩放器组件(Canvas Scaler)中的UI Scale Mode设置为“Scale With Screen Size”
+2. 设置缩放器组件中的参考分辨率(reference Resolution)
+3. 设置缩放器组件中的Match属性为0.5，这样当画布的宽度扩大到原来的1.5倍而高度缩短为原来的1/1.5，最终的缩放因子为1
+4. 设置画布中元素的锚点
+
+### 设置自动寻路和动画耦合
+
+```c#
+//		// Pull character towards agent
+        //if (worldDeltaPosition.magnitude > agent.radius)
+        //    transform.position = agent.nextPosition - 0.9f * worldDeltaPosition;
+//或
+void OnAnimatorMove () {
+        // Update postion to agent position
+        //transform.position = agent.nextPosition;
+
+        // Update position based on animation movement using navigation surface height
+        Vector3 position = anim.rootPosition;
+        position.y = agent.nextPosition.y;
+        transform.position = position;
+    }
+```
+
 ## C#不常用（[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/)）
 
 ### C#在值类型后加？
@@ -245,6 +270,18 @@ int result = a ?? 0;
 
 *函数结果中含有数组时，尽量将这个数组作为参数传入，不要再函数中新建一个数组对象，减少内存的使用*
 
+### Array、ArrayList、list的区别
+
+array最早出现，由于它在内存中是连续存储的，查找的速度非常快、赋值和修改元素很简单，但是它的长度是不能变化的，插入数据非常麻烦、在声明时需要给一个长度，长度过长会造成内存浪费。
+
+ArrayList是命名空间System.Collections下的一部分，ArrayList对象的大小是按照其中存储的数据来动态扩充与收缩的。arrayList中读取和插入时会有一个拆箱和封箱的过程（Arraylist中实际存的是object，每次操作都有一个转换），这样就允许存入不同类型的数据，但是这样会带来很大的性能耗损。
+
+List类是ArrayList类的泛型等效类，在声明list时要提供一个对象类型，并且list中只能存这个类型的对象，list没有封箱、拆箱的操作比arrayList性能强。
+
+数组可以具有多个维度，而 ArrayList或 List< T> 始终只具有一个维度。但是，您可以轻松创建数组列表或列表的列表。特定类型（Object 除外）的数组 的性能优于 ArrayList的性能。 这是因为 ArrayList的元素属于 Object 类型；所以在存储或检索值类型时通常发生装箱和取消装箱操作。不过，在不需要重新分配时（即最初的容量十分接近列表的最大容量），List< T> 的性能与同类型的数组十分相近。
+
+在决定使用 List\<T\> 还是使用ArrayList 类（两者具有类似的功能）时，记住List\<T\> 类在大多数情况下执行得更好并且是类型安全的。如果对List< T> 类的类型T 使用引用类型，则两个类的行为是完全相同的。但是，如果对类型T使用值类型，则需要考虑实现和装箱问题。
+
 ## C#中的关键词
 
 ### sealed关键词
@@ -297,4 +334,15 @@ public delegate TResult Func<in T1, in T2, out TResult>(T1 arg1, T2 arg2);
 ```c#
 public delegate bool Predicate<in T>(T obj);
 ```
+
+## Linq
+
+### AsEnumerable和AsQueryable的区别
+
+​	1.执行顺序不同。AsQueryable是在数据库中查询再返回数据，AsEnumerable是从数据库读取全部数据再在程序中查询。将Ienumerable\<T\>转换成IQueryable\<T\>后,当遇到连表查询的时候,能提高速度，因为先将数据从数据库转存到内存中.
+
+## 由骑士旅行——寻路算法
+
+1. 用深度优先算法进行技术，能找到两点之间路径的解
+2. 比较各种路径的长度
 

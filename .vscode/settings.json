@@ -1,0 +1,12 @@
+{
+  "cSpell.words": [
+    "IMGUI"
+  ],
+  "cSpell.language": "en,en-GB,en-US",
+  "cSpell.enableFiletypes": [
+    "bat",
+    "django-txt",
+    "sql",
+    "vue"
+  ]
+}

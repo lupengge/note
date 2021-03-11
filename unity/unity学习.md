@@ -2,27 +2,27 @@
 
 ## unity
 
-### 添加标准资源到项目中
+### 资源
 
-1.从unity官网下载standard assetsSetUp
+#### StreamingAssets文件夹
 
-2.点击安装
+​	unity中的资源在打包生成可执行文件的时候都会进行压缩，但是StreamingAssets文件夹中的文件并不会进行压缩，编码格式并不会发生改变。获取这个文件夹的位置：`Application.streamingAssetsPath`,想获取其中的文件可以用system.io下的File或文件流等。
 
-3.安装后就能在安装路径下"Editor/Standard Assets"下找到资源包
+#### 加载资源的方式
 
-4.在project视图中将需要的资源包导入到项目中
+- 只能在editor中使用的AssetDatabase
+- AssetBundle类
+- Resources.load()方法
+- UnityWebRequest
 
-###  轨迹渲染器
+#### 实例化预制体
 
-1.创建一个带有tril render的游戏对象或直接通过菜单中的GameObject中的effect-->trail创建
+```c#
+GameObject prefab=Resources.load("");
+Instantiate(prefab, position, rotation);
+```
 
-2.将要添加轨迹的游戏对象放到上面创建的游戏对象的子级下，将position设为（0，0，0）
-
-3.调整tril render中的属性
-
-4.当移动第一步创建的游戏对象时要添加轨迹的游戏对象也会移动并会渲染轨迹
-
-###  实例化预制件示例
+####  实例化预制件示例
 
 ```c#
 using UnityEngine;
@@ -44,19 +44,41 @@ public class InstantiationExample : MonoBehaviour
 
 *在拖入inspector进行赋值时，可以将含有某个类型的GameObject类型赋值给相应的类型*
 
-### 欧拉角和Quaternin转换
+#### ScriptableObject
 
-unity游戏对象的rotation是Quaternion类型
+​	ScriptableObject 是一个可独立于类实例来保存大量数据的数据容器。ScriptableObject 的一个主要用例是通过避免重复值来减少项目的内存使用量。如果项目有一个[预制件](http://localhost/unity/Manual/Prefabs.html)在附加的 MonoBehaviour 脚本中存储不变的数据，这将非常有用。<br>	每次实例化预制件时，都会产生单独的数据副本。这种情况下可以不使用该方法并且不存储重复数据，而是使用 ScriptableObject 来存储数据，然后通过所有预制件的引用访问数据。这意味着内存中只有一个数据副本。<br>	就像 MonoBehaviour 一样，ScriptableObject 派生自基本 Unity 对象，但与 MonoBehaviour 不同，不能将 ScriptableObject 附加到[游戏对象](http://localhost/unity/Manual/class-GameObject.html)。正确的做法是需要将它们保存为项目中的资源。<br>	如果使用 Editor，可以在编辑时和运行时将数据保存到 ScriptableObject，因为 ScriptableObject 使用 Editor 命名空间和 Editor 脚本。但是，在已部署的构建中，不能使用 ScriptableObject 来保存数据，但可以使用在开发期间设置的 ScriptableObject 资源中保存的数据。<br>	从 Editor 工具作为资源保存到 ScriptableObject 的数据将写入磁盘，因此将在会话之间一直保留。<br>ScriptableObjects 的主要用例为：
 
-1.将quaternion转换成euler用quaternion的eulerAngles属性
+- 在 Editor 会话期间保存和存储数据
+- 将数据保存为项目中的资源，以便在运行时使用
 
-2.将Euler转换成Quaternion：`Quaternion.Euler(angles)`
+要使用 ScriptableObject，必须在应用程序的 **Assets** 文件夹中创建一个脚本，并使其继承自 `ScriptableObject` 类。您可以使用 [CreateAssetMenu](http://localhost/unity/ScriptReference/CreateAssetMenuAttribute.html) 属性，从而使用您的类轻松创建自定义资源。例如：
 
-### 在scene中画自定义形状能用Gizmos类和Handles类
+```c#
+using UnityEngine;
 
-### 两种下载texture的方法
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
+public class SpawnManagerScriptableObject : ScriptableObject
+{
+    public string prefabName;
 
-1.
+    public int numberOfPrefabsToCreate;
+    public Vector3[] spawnPoints;
+}
+```
+
+#### 添加标准资源到项目中
+
+1.从unity官网下载standard assetsSetUp
+
+2.点击安装
+
+3.安装后就能在安装路径下"Editor/Standard Assets"下找到资源包
+
+4.在project视图中将需要的资源包导入到项目中
+
+#### 两种下载texture的方法
+
+##### 1.UnityWebRequestTexture
 
 ```c#
 using UnityEngine;
@@ -82,16 +104,36 @@ public class MyBehaviour : MonoBehaviour {
 }
 ```
 
-2.使用helper getter
+##### 2.使用helper getter
 
 ```c#
-    IEnumerator GetTexture() {
-            UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://www.my-server.com/image.png");
-            yield return www.SendWebRequest();
+IEnumerator GetTexture() {
+  UnityWebRequest www = UnityWebRequestTexture.GetTexture("http://www.my-server.com/image.png");
+  yield return www.SendWebRequest();
 
-            Texture myTexture = DownloadHandlerTexture.GetContent(www);
-        }
+  Texture myTexture = DownloadHandlerTexture.GetContent(www);
+}
 ```
+
+###  轨迹渲染器的使用
+
+1.创建一个带有tril render的游戏对象或直接通过菜单中的GameObject中的effect-->trail创建
+
+2.将要添加轨迹的游戏对象放到上面创建的游戏对象的子级下，将position设为（0，0，0）
+
+3.调整tril render中的属性
+
+4.当移动第一步创建的游戏对象时要添加轨迹的游戏对象也会移动并会渲染轨迹
+
+### 欧拉角和Quaternin转换
+
+unity游戏对象的rotation是Quaternion类型
+
+1.将quaternion转换成euler用quaternion的eulerAngles属性
+
+2.将Euler转换成Quaternion：`Quaternion.Euler(angles)`
+
+### 在scene中画自定义形状能用Gizmos类和Handles类
 
 ### 加权、散点型随机项
 
@@ -216,7 +258,218 @@ void OnAnimatorMove () {
     }
 ```
 
-## C#不常用（[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/)）
+### 用Unity原生UGUI搭建一个目录树
+
+首先看实现效果
+
+![MenuTree](C:\Users\Administrator\Desktop\note\myNotes\images\MenuTree.gif)
+
+1. 先弄一个主题框架，有标题（text），有content（一个scroll View,如果内容过多）
+
+2. 设计目录树中的一级的UI并将它拖出来成为预制体<br>预制体中间留一个空的游戏对象,用来存放这一级的孩子节点
+
+3. 写一个菜单节点的C#类
+
+   ```c#
+   /// <summary>
+   /// 目录树中的其中一级
+   /// </summary>
+   class MenuItemData
+   {
+       public string name;
+       public List<MenuItemData> children;
+   }
+   ```
+
+   写一个json文档，存放目录树的结构，使这个目录树可以复用。
+
+   在程序开始的时候加载，并序列化json文档
+
+   ```c#
+   try
+   {
+       string MenuData = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, MenuDataPath));
+       menuObject = JsonMapper.ToObject<MenuItemData>(MenuData);
+       loadMenu(menuObject);
+   }
+   catch (IOException iOException)
+   {
+       Debug.LogWarning(iOException.Message);
+   }
+   ```
+
+   ​	根据数据绘制UI
+
+   ```c#
+   void loadMenu(MenuItemData menuData)
+   { 
+     //在搭建主题框架的时候留了一个放目录内容的空游戏对象名叫“content”，这个脚本在目录树主体上挂
+       GameObject contentObj = transform.Find("content").gameObject;
+       for (int i = 0; i < menuData.children.Count; i++)
+       {
+           addItemToUI(menuData.children[i], contentObj, i);
+       }
+   }
+   ```
+
+   思路一：
+
+   1. 后面addItemToUI用递归的方法生成每一个等级的UI
+   2. 将级别较高的item在初始化时setActive(false)
+   3. 根据数据设置ui中的文字
+   4. 给item添加事件，item中有一个button。在事件中控制UI的位置变化
+   5. 想给item的UI添加可配置的UI可以给MenuItemData类添加一个string字段，在json中写要调用的方法名称，然后用反射的方法，调用某一个类中的方法
+
+   ```c#
+   
+   /// <summary>
+   /// 将mentTree数据中的item变成游戏对象添加到UI中
+   /// </summary>
+   /// <param name="item">菜单中的一级</param>
+   /// <param name="parent">要放进去的游戏对象，这个游戏对象应该由</param>
+   /// <param name="index">这个item在原children列表中的index</param>
+   void addItemToUI(MenuItemData item,GameObject parent, int index)
+   {
+       //实例化一个item游戏对象并将它添加到parent中的
+       GameObject currentItem = Instantiate(menuItem, parent.transform);
+   
+       string parentNodeName = parent.transform.parent.gameObject.name;
+       if (parentNodeName!="TreeMenu")
+       {
+           currentItem.name = parent.transform.parent.gameObject.name + "-" + index.ToString();
+           currentItem.SetActive(false);
+       }
+       else
+       {
+           currentItem.name = index.ToString();
+       }
+           
+       currentItem.transform.localPosition = new Vector3(0, -20 * index, 0);
+       GameObject nextParent = currentItem.transform.Find("childItems").gameObject;
+   
+       currentItem.transform.Find("Text").gameObject.GetComponent<Text>().text = item.name;
+   
+       bool isOnBefore = false;
+       //添加ui点击tree实现的监听
+       currentItem.GetComponent<Button>().onClick.AddListener(() =>
+       {
+           currentItem.transform.GetChild(0).Rotate(new Vector3(0, 0, isOnBefore ? 90 : -90));
+               
+           if (isOnBefore)
+           {
+               moveAllAfterItem(currentItem.transform, NumOfActiveChildren(currentItem.transform) * 20);
+               for (int i = 0; i < nextParent.transform.childCount; i++)
+               {
+                   nextParent.transform.GetChild(i).gameObject.SetActive(!isOnBefore);
+               }
+           }
+           else
+           {
+               for (int i = 0; i < nextParent.transform.childCount; i++)
+               {
+                   nextParent.transform.GetChild(i).gameObject.SetActive(!isOnBefore);
+               }
+               moveAllAfterItem(currentItem.transform, -NumOfActiveChildren(currentItem.transform) * 20);
+           }
+   
+           isOnBefore = !isOnBefore;
+       });
+   
+       //将这个item数据的children添加到UI中
+       for (int i = 0; i < item.children.Count; i++)
+       {
+           addItemToUI(item.children[i], nextParent, i);
+       }
+   }
+   /// <summary>
+   /// 遍历目录树，并将某个节点移动一个距离
+   /// </summary>
+   /// <param name="item">点击的游戏对象的transform</param>
+   /// <param name="distance">要移动的距离</param>
+   void moveAllAfterItem(Transform item,int distance)
+   {
+           
+       string[] indexs = item.gameObject.name.Split('-');
+   
+       //目录树的起始节点
+       Transform startNode = GameObject.Find("content").transform;
+   
+       Queue<Transform> pendingTransform = new Queue<Transform>();
+       for(int i=0;i< startNode.childCount; i++)
+       {
+           pendingTransform.Enqueue(startNode.GetChild(i));
+       }
+           
+   
+       while (pendingTransform.Count>0)
+       {
+           //从堆栈中抛出一个transform，将它的下一层所有孩子压入堆栈
+           Transform currentTransform = pendingTransform.Dequeue();
+           for (int i = 0; i < currentTransform.GetChild(1).childCount; i++)
+           {
+               pendingTransform.Enqueue(currentTransform.GetChild(1).GetChild(i));
+           }
+               
+           string[] currentindexs = currentTransform.gameObject.name.Split('-');
+   
+           //给的index[1,1,1]
+           //当前index[2,0]
+   
+           //当根相同或长度为1且第
+           if (currentTransform.gameObject.activeSelf)
+           {
+               for (int i = 0; i < (currentindexs.Length<indexs.Length?currentindexs.Length:indexs.Length); i++)
+               {
+                   if (currentindexs.Length < i+2 || currentindexs[i] == indexs[i])
+                   {
+                       if (int.Parse(indexs[i]) < int.Parse(currentindexs[i]))
+                       {
+                           currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y + distance, 0);
+                           if (currentindexs.Length>1&&currentindexs[0]!=indexs[0])
+                           {
+                               currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y - distance, 0);
+                           }
+                           break;
+                       }
+                   }
+               }
+           }
+       }
+   }
+   
+   /// <summary>
+   /// 返回该节点下面打开的所有节点
+   /// </summary>
+   /// <param name="menuItem"></param>
+   /// <returns></returns>
+   int NumOfActiveChildren(Transform menuItem)
+   {
+       int count = 0;
+       Queue<Transform> pendingTransform = new Queue<Transform>();
+   
+       pendingTransform.Enqueue(menuItem);
+   
+       while (pendingTransform.Count>0)
+       {
+           Transform currentItem = pendingTransform.Dequeue();
+           Transform nextParent = currentItem.Find("childItems");
+           //先将这个节点所有的孩子节点入栈
+           for (int i = 0; i < nextParent.childCount; i++)
+           {
+               pendingTransform.Enqueue(nextParent.GetChild(i));
+           }
+           if (currentItem.gameObject.activeInHierarchy)
+           {
+               count += 1;
+           }
+       }
+       return count-1;
+   }
+   ```
+
+## C#不常用
+
+（[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/)）
 
 ### C#在值类型后加？
 

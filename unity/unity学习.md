@@ -262,7 +262,7 @@ void OnAnimatorMove () {
 
 首先看实现效果
 
-![MenuTree](..\images\MenuTree.gif)
+![MenuTree](../images/MenuTree.gif)
 
 1. 先弄一个主题框架，有标题（text），有content（一个scroll View,如果内容过多）
 

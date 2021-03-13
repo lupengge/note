@@ -1,4 +1,4 @@
-# unity学习
+# unity学习时基类
 
 ## unity
 
@@ -535,6 +535,26 @@ List类是ArrayList类的泛型等效类，在声明list时要提供一个对象
 
 在决定使用 List\<T\> 还是使用ArrayList 类（两者具有类似的功能）时，记住List\<T\> 类在大多数情况下执行得更好并且是类型安全的。如果对List< T> 类的类型T 使用引用类型，则两个类的行为是完全相同的。但是，如果对类型T使用值类型，则需要考虑实现和装箱问题。
 
+### extension(扩展)方法
+
+​	在C# 3.0中，扩展方法允许您扩充任何类，甚至是标记为封装的类。扩展方法就是将静态方法（必须声明成static）插入到某个类和其子类中
+
+```c#
+namespace MyExtensionMethods
+{
+　public static class Extension
+　{
+   //this后面的类型指示要给那个类添加扩展方法，除了这个参数指示对象自己，还能添加其他参数，放到this参数后面
+　　public static void NoSpaces(this string s)
+　　{
+　　　return s.Replace(" ", "");
+　　}
+　}
+}
+```
+
+
+
 ## C#中的关键词
 
 ### sealed关键词
@@ -593,6 +613,46 @@ public delegate bool Predicate<in T>(T obj);
 ### AsEnumerable和AsQueryable的区别
 
 ​	1.执行顺序不同。AsQueryable是在数据库中查询再返回数据，AsEnumerable是从数据库读取全部数据再在程序中查询。将Ienumerable\<T\>转换成IQueryable\<T\>后,当遇到连表查询的时候,能提高速度，因为先将数据从数据库转存到内存中.
+
+## 网络编程
+
+### 1.tcp和udp的区别
+
+​	TCP：（传输控制协议）含义：是面向连接的协议，也就是说，在收发数据前，必须和对方建立可靠的连接。可靠传输<br>	UDP：（用户数据报协议）含义：是一个非连接的协议，传输数据之前源端和终端不建立连接，当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快的把它扔到网络上。不可靠传输，可能会丢包<br>	Http： (hypertext transport protocol)超文本网络传输协议<br>	FTP: (File Transfer Protocol）文件传输协议。较大文件的网络上传输的协议
+
+1. tcp必须建立可靠的连接，udp无连接
+2. tcp对系统资源的要求较多，udp对系统资源的要求较少
+3. udp程序结构比较简单
+4. tcp是一种流模式的协议，udp是一种数据报模式的协议
+5. TCP保证数据的正确性，udp可能会丢包
+6. tcp保证数据顺序，udp不保证
+7. 传输速度：http<tcp<udp
+
+## 2.IP地址、端口号和终结点
+
+​	ip地址：ip（Internet Protocol）网络上电脑的唯一标识<br>	端口号：电脑上应用程序的标识，0-1024预留给系统应用使用。两台带闹闹通讯本质上是电脑上的应用程序的通讯(IP地址和端口号)<br>	总结点:endpoint ip地址+端口号
+
+#### 常用端口号
+
+| http |  ftp  | ssh  | Telnet | SMTP |      | DNS  | BootP(server/client) | TFTP | SNMP |
+| :--: | :---: | :--: | :----: | :--: | :--: | :--: | :------------------: | :--: | :--: |
+|  80  | 20/21 |  22  |   23   |  25  |      |  53  |        67/68         |  69  | 161  |
+
+其中前几个是TCP协议，后几个是UDP协议
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 由骑士旅行——寻路算法
 

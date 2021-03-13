@@ -542,14 +542,14 @@ List类是ArrayList类的泛型等效类，在声明list时要提供一个对象
 ```c#
 namespace MyExtensionMethods
 {
-　public static class Extension
-　{
+  public static class Extension
+  {
    //this后面的类型指示要给那个类添加扩展方法，除了这个参数指示对象自己，还能添加其他参数，放到this参数后面
-　　public static void NoSpaces(this string s)
-　　{
-　　　return s.Replace(" ", "");
-　　}
-　}
+    public static void NoSpaces(this string s)
+    {
+        return s.Replace(" ", "");
+    }
+  }
 }
 ```
 

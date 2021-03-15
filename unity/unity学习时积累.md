@@ -381,61 +381,58 @@ void OnAnimatorMove () {
            addItemToUI(item.children[i], nextParent, i);
        }
    }
-   /// <summary>
-   /// 遍历目录树，并将某个节点移动一个距离
-   /// </summary>
-   /// <param name="item">点击的游戏对象的transform</param>
-   /// <param name="distance">要移动的距离</param>
-   void moveAllAfterItem(Transform item,int distance)
-   {
-           
-       string[] indexs = item.gameObject.name.Split('-');
    
-       //目录树的起始节点
-       Transform startNode = GameObject.Find("content").transform;
-   
-       Queue<Transform> pendingTransform = new Queue<Transform>();
-       for(int i=0;i< startNode.childCount; i++)
-       {
-           pendingTransform.Enqueue(startNode.GetChild(i));
-       }
-           
-   
-       while (pendingTransform.Count>0)
-       {
-           //从堆栈中抛出一个transform，将它的下一层所有孩子压入堆栈
-           Transform currentTransform = pendingTransform.Dequeue();
-           for (int i = 0; i < currentTransform.GetChild(1).childCount; i++)
-           {
-               pendingTransform.Enqueue(currentTransform.GetChild(1).GetChild(i));
-           }
-               
-           string[] currentindexs = currentTransform.gameObject.name.Split('-');
-   
-           //给的index[1,1,1]
-           //当前index[2,0]
-   
-           //当根相同或长度为1且第
-           if (currentTransform.gameObject.activeSelf)
-           {
-               for (int i = 0; i < (currentindexs.Length<indexs.Length?currentindexs.Length:indexs.Length); i++)
-               {
-                   if (currentindexs.Length < i+2 || currentindexs[i] == indexs[i])
-                   {
-                       if (int.Parse(indexs[i]) < int.Parse(currentindexs[i]))
-                       {
-                           currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y + distance, 0);
-                           if (currentindexs.Length>1&&currentindexs[0]!=indexs[0])
-                           {
-                               currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y - distance, 0);
-                           }
-                           break;
-                       }
-                   }
-               }
-           }
-       }
-   }
+/// <summary>
+    /// 遍历目录树，并将某个节点下的所有节点移动一个距离
+    /// </summary>
+    /// <param name="item">点击的游戏对象的transform</param>
+    /// <param name="distance">要移动的距离</param>
+    void moveAllAfterItem(Transform item, int distance)
+    {
+
+        string[] indexs = item.gameObject.name.Split('-');
+
+        //目录树的起始节点
+        Transform startNode = GameObject.Find("content").transform;
+
+        Queue<Transform> pendingTransform = new Queue<Transform>();
+        for (int i = 0; i < startNode.childCount; i++)
+        {
+            pendingTransform.Enqueue(startNode.GetChild(i));
+        }
+
+
+        while (pendingTransform.Count > 0)
+        {
+            //从堆栈中抛出一个transform，将它的下一层所有孩子压入堆栈
+            Transform currentTransform = pendingTransform.Dequeue();
+            for (int i = 0; i < currentTransform.Find("childItems").childCount; i++)
+            {
+                pendingTransform.Enqueue(currentTransform.Find("childItems").GetChild(i));
+            }
+
+            string[] currentindexs = currentTransform.gameObject.name.Split('-');
+
+            if (currentTransform.gameObject.activeSelf)
+            {
+                for (int i = 0; i < (currentindexs.Length < indexs.Length ? currentindexs.Length : indexs.Length); i++)
+                {
+                    if (currentindexs.Length < i + 2 || currentindexs[i] == indexs[i])
+                    {
+                        if (int.Parse(indexs[i]) < int.Parse(currentindexs[i]))
+                        {
+                            currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y + distance, 0);
+                            if (currentindexs.Length > 1 && currentindexs[0] != indexs[0])
+                            {
+                                currentTransform.localPosition = new Vector3(0, currentTransform.localPosition.y - distance, 0);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
    
    /// <summary>
    /// 返回该节点下面打开的所有节点

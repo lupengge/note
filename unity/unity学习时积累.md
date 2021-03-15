@@ -15,13 +15,6 @@
 - Resources.load()方法
 - UnityWebRequest
 
-#### 实例化预制体
-
-```c#
-GameObject prefab=Resources.load("");
-Instantiate(prefab, position, rotation);
-```
-
 ####  实例化预制件示例
 
 ```c#
@@ -318,7 +311,7 @@ void OnAnimatorMove () {
    2. 将级别较高的item在初始化时setActive(false)
    3. 根据数据设置ui中的文字
    4. 给item添加事件，item中有一个button。在事件中控制UI的位置变化
-   5. 想给item的UI添加可配置的UI可以给MenuItemData类添加一个string字段，在json中写要调用的方法名称，然后用反射的方法，调用某一个类中的方法
+   5. 想给item的UI添加可配置的事件，可以给MenuItemData类添加一个string类型的字段，在json中写要调用的方法名称，然后用反射的方法，调用某一个类中的方法
 
    ```c#
    
@@ -382,7 +375,7 @@ void OnAnimatorMove () {
        }
    }
    
-/// <summary>
+    /// <summary>
     /// 遍历目录树，并将某个节点下的所有节点移动一个距离
     /// </summary>
     /// <param name="item">点击的游戏对象的transform</param>
@@ -638,21 +631,4 @@ public delegate bool Predicate<in T>(T obj);
 其中前几个是TCP协议，后几个是UDP协议
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 由骑士旅行——寻路算法
-
-1. 用深度优先算法进行技术，能找到两点之间路径的解
-2. 比较各种路径的长度
 

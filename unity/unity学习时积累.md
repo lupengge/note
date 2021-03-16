@@ -336,7 +336,6 @@ void OnAnimatorMove () {
        {
            currentItem.name = index.ToString();
        }
-           
        currentItem.transform.localPosition = new Vector3(0, -20 * index, 0);
        GameObject nextParent = currentItem.transform.Find("childItems").gameObject;
    
@@ -393,8 +392,6 @@ void OnAnimatorMove () {
         {
             pendingTransform.Enqueue(startNode.GetChild(i));
         }
-
-
         while (pendingTransform.Count > 0)
         {
             //从堆栈中抛出一个transform，将它的下一层所有孩子压入堆栈

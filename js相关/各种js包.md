@@ -8,3 +8,4 @@
 8. html和markDown的转换——Turndown
 9. html中截图——html2canvas
 10. html文本编辑器——CKEditor，有可视化的功能配置工具
+11. markdown转html——marked.js

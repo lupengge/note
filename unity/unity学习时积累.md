@@ -35,7 +35,7 @@ public class InstantiationExample : MonoBehaviour
 
 也能用`Resources.Load();`加载在项目中的资源然后进行类型转换成GameObject类型
 
-*在拖入inspector进行赋值时，可以将含有某个类型的GameObject类型赋值给相应的类型*
+ ==在拖入inspector进行赋值时，可以将含有某个类型的GameObject类型赋值给相应的类型==
 
 #### 添加标准资源到项目中
 
@@ -88,33 +88,100 @@ IEnumerator GetTexture() {
 
 #### 两种打包精灵图片的方式
 
-1. 使用SpritePacker,精灵打包器，Window->2D->SpritePakcer可以打开SpritePacker
-2. 精灵图集 (Sprite Atlas) 是一种将多个纹理合并为一个组合纹理的资源。Unity 可以调用此单个纹理来发出单个绘制调用而不是发出多个绘制调用，能够以较小的性能开销一次性访问压缩的纹理
+1. 使用SpritePacker,精灵打包器，Window->2D->SpritePakcer可以打开SpritePacker。
+2. 精灵图集 (Sprite Atlas) 是一种将多个纹理合并为一个组合纹理的资源。Unity 可以调用此单个纹理来发出单个绘制调用而不是发出多个绘制调用，能够以较小的性能开销一次性访问压缩的纹理。
 
 ###  轨迹渲染器的使用
 
-1.创建一个带有tril render的游戏对象或直接通过菜单中的GameObject中的effect-->trail创建
+1.创建一个带有tril render的游戏对象或直接通过菜单中的GameObject中的effect-->trail创建。
 
-2.将要添加轨迹的游戏对象放到上面创建的游戏对象的子级下，将position设为（0，0，0）
+2.将要添加轨迹的游戏对象放到上面创建的游戏对象的子级下，将position设为（0，0，0）。
 
-3.调整tril render中的属性
+3.调整tril render中的属性。
 
-4.当移动第一步创建的游戏对象时要添加轨迹的游戏对象也会移动并会渲染轨迹
+4.当移动第一步创建的游戏对象时要添加轨迹的游戏对象也会移动并会渲染轨迹。
 
 ### 欧拉角和Quaternin转换
 
-unity游戏对象的rotation是Quaternion类型
+unity游戏对象的rotation是Quaternion类型。
 
-1.将quaternion转换成euler用quaternion的eulerAngles属性
+1.将quaternion转换成euler用quaternion的eulerAngles属性。
 
-2.将Euler转换成Quaternion：`Quaternion.Euler(angles)`
+2.将Euler转换成Quaternion：`Quaternion.Euler(angles)`。
 
 ### unity设置不同屏幕适配
 
-1. 画布(canvas)中的缩放器组件(Canvas Scaler)中的UI Scale Mode设置为“Scale With Screen Size”
-2. 设置缩放器组件中的参考分辨率(reference Resolution)
-3. 设置缩放器组件中的Match属性为0.5，这样当画布的宽度扩大到原来的1.5倍而高度缩短为原来的1/1.5，最终的缩放因子为1
-4. 设置画布中元素的锚点
+1. 画布(canvas)中的缩放器组件(Canvas Scaler)中的UI Scale Mode设置为“Scale With Screen Size”。
+2. 设置缩放器组件中的参考分辨率(reference Resolution)。
+3. 设置缩放器组件中的Match属性为0.5，这样当画布的宽度扩大到原来的1.5倍而高度缩短为原来的1/1.5，最终的缩放因子为1。
+4. 设置画布中元素的锚点。
+
+### 给UGUI添加事件的方法
+
+#### 1.在editor中的Inspector中添加事件
+
+​	比如按钮，在创建按钮游戏对象的时候就有一个**Button**组件在上面，在button组件上有一个“On Click {}”的属性，点击下面的加号就能添加事件了。添加之后需要给他分配一个事件的方法，可以将带有脚本的游戏对象拖进去，就能选这个游戏对象上挂载的脚本的公共方法当作事件的回调函数了。
+
+#### 2.脚本中实现事件接口
+
+​	比如，想给一个plane游戏对象添加一个鼠标移入的方法，需要在这个游戏对象上挂载一个脚本，这个脚本的类要实现“IPointerEnterHandler”接口，Unity中事件接口的命名空间为“using UnityEngine.EventSystems;”。
+
+```c#
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class handleEvenManager : MonoBehaviour,IPointerEnterHandler
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+		public void OnPointerEnter(PointerEventData eventData)
+    {
+        print("PointerEnter event is happening");
+    }
+}
+```
+
+#### 3.在代码中给按钮游戏对象添加点击事件
+
+```c#
+//b是一个Button类型
+b.onClick.AddListener(()=> { print("button has been clicked"); });
+```
+
+#### 4.写Button的派生类
+
+通过写一个继承Button的类，重写事件回调函数来实现给button添加事件。在需要带有这个事件的按钮的时候将这个脚本挂到游戏对象上
+
+```c#
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+//button需要一个image组件
+[RequireComponent(typeof(Image))]
+public class DIYButton : Button
+{
+    public override void OnPointerEnter(PointerEventData e)
+    {
+        base.OnPointerEnter(e);
+        print("PointerEnter event is happening");
+    }
+}
+```
+
+#### 5.通过EventTrigger 组件添加事件
+
+1. 在要添加事件的游戏对象上面添加一个EventTrigger组件，并在EventTrigger中添加事件。
+2. 创建一个脚本，在脚本中写事件的“public”的回调方法，并挂到一个游戏对象上。
+3. 将`2.`中的游戏对象挂到`1.`中添加的事件中并选择相应的方法。
 
 ## 随机选项
 
@@ -126,13 +193,10 @@ unity游戏对象的rotation是Quaternion类型
 float Choose (float[] probs) {
 
     float total = 0;
-
     foreach (float elem in probs) {
         total += elem;
     }
-
     float randomPoint = Random.value * total;
-
     for (int i= 0; i < probs.Length; i++) {
         if (randomPoint < probs[i]) {
             return i;
@@ -224,9 +288,9 @@ Transform[] ChooseSet (int numRequired) {
 
 ![MenuTree](../images/MenuTree.gif)
 
-### 准备工作
+### 1.准备工作
 
-1. 先弄一个主题框架，有标题（text），有content（一个scroll View,如果内容过多）
+1. 先弄一个主体框架，有标题（text），有content（一个scroll View,如果内容过多）
 
 2. 设计目录树中的一级的UI并将它拖出来成为预制体<br>预制体中间留一个空的游戏对象,用来存放这一级的孩子节点
 
@@ -243,7 +307,7 @@ Transform[] ChooseSet (int numRequired) {
    }
    ```
 
-### 用json存储目录结构
+### 2.用json存储目录结构
 写一个json文档，存放目录树的结构，使这个目录树可以复用。
 
 在程序开始的时候加载
@@ -261,7 +325,7 @@ catch (IOException iOException)
 }
 ```
 
-根据数据绘制UI
+### 3.根据数据绘制UI
 
 ```c#
 void loadMenu(MenuItemData menuData)
@@ -280,7 +344,7 @@ void loadMenu(MenuItemData menuData)
 1. 后面addItemToUI用递归的方法生成每一个等级的UI
 2. 将级别较高的item在初始化时setActive(false)
 3. 根据数据设置ui中的文字
-4. 给item添加事件，item中有一个button。在事件中控制UI的位置变化
+4. 给item添加事件，item中有一个button。在点击事件中控制UI的位置变化
 5. 想给item的UI添加可配置的事件，可以给MenuItemData类添加一个string类型的字段，在json中写要调用的方法名称，然后用反射的方法，调用某一个类中的方法
 
 ```c#
@@ -423,6 +487,8 @@ int NumOfActiveChildren(Transform menuItem)
     return count-1;
 }
 ```
+
+# 学到的C#知识点
 
 ## C#不常用
 
@@ -585,11 +651,11 @@ public delegate bool Predicate<in T>(T obj);
 6. tcp保证数据顺序，udp不保证
 7. 传输速度：http<tcp<udp
 
-## 2.IP地址、端口号和终结点
+### 2.IP地址、端口号和终结点
 
 ​	ip地址：ip（Internet Protocol）网络上电脑的唯一标识<br>	端口号：电脑上应用程序的标识，0-1024预留给系统应用使用。两台带闹闹通讯本质上是电脑上的应用程序的通讯(IP地址和端口号)<br>	终结点:endpoint ip地址+端口号
 
-#### 常用端口号
+常用端口号：
 
 | http |  ftp  | ssh  | Telnet | SMTP |      | DNS  | BootP(server/client) | TFTP | SNMP |
 | :--: | :---: | :--: | :----: | :--: | :--: | :--: | :------------------: | :--: | :--: |

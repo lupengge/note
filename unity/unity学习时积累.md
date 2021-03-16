@@ -617,7 +617,7 @@ public delegate bool Predicate<in T>(T obj);
 
 ## 2.IP地址、端口号和终结点
 
-​	ip地址：ip（Internet Protocol）网络上电脑的唯一标识<br>	端口号：电脑上应用程序的标识，0-1024预留给系统应用使用。两台带闹闹通讯本质上是电脑上的应用程序的通讯(IP地址和端口号)<br>	总结点:endpoint ip地址+端口号
+​	ip地址：ip（Internet Protocol）网络上电脑的唯一标识<br>	端口号：电脑上应用程序的标识，0-1024预留给系统应用使用。两台带闹闹通讯本质上是电脑上的应用程序的通讯(IP地址和端口号)<br>	终结点:endpoint ip地址+端口号
 
 #### 常用端口号
 

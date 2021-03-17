@@ -48,9 +48,12 @@
    第一个参数字符串类型，存放AssetBundles的路径，可以是电脑磁盘上的任意路径
    
    第二个参数，打包的方式
-   BuildAssetBundleOptions.None：使用LZMA算法压缩，压缩的包更小，但是加载时间更长。使用之前需要整体解压。一旦被解压，这个包会使用LZ4重新压缩。使用资源的时候不需要整体解压。在下载的时候可以使用LZMA算法，一旦它被下载了之后，它会使用LZ4算法保存到本地上。
+   BuildAssetBundleOptions.None：使用LZMA算法压缩，压缩的包更小，但是加载时间更长。
+   	使用之前需要整体解压。一旦被解压，这个包会使用LZ4重新压缩。使用资源的时候不需要整体解压。
+   	在下载的时候可以使用LZMA算法，一旦它被下载了之后，它会使用LZ4算法保存到本地上。
    BuildAssetBundleOptions.UncompressedAssetBundle：不压缩，包大，加载快
-   BuildAssetBundleOptions.ChunkBasedCompression：使用LZ4压缩，压缩率没有LZMA高，但是我们可以加载指定资源而不用解压全部。
+   BuildAssetBundleOptions.ChunkBasedCompression：使用LZ4压缩，压缩率没有LZMA高，
+   	但是我们可以加载指定资源而不用解压全部。
    
    第三个参数，目标构建平台，能选其他操作系统。
    */
@@ -64,7 +67,8 @@
 public class LoadFromFileExample : MonoBehaviour {
     function Start() {
       //myLoadedAssetBundle是一个包含AssetBundle文件中所有资源的一个Object数组
-        var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myassetBundle"));
+        var myLoadedAssetBundle 
+          = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myassetBundle"));
         if (myLoadedAssetBundle == null) {
             Debug.Log("Failed to load AssetBundle!");
             return;

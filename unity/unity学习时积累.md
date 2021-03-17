@@ -33,7 +33,7 @@
 
 1. 在需要打包的资Inspector窗口下方的“AssetBundle”属性中选择一个AssetBundle名称；<br>你甚至可以选择一个文件夹然后选择他的assetBundle属性<br>创建新的AssetBundle属性时可以用“/”,表示创建目录，但是目录不能重复，你可以给文件自定义后缀但是，想打包进AssetBundle中的二进制文件，文件名的后缀必须为“.bytes”
 
-   ![image-20210317093133600](C:\Users\Administrator\Desktop\note\myNotes\images\image-20210317093133600.png)
+   ![image-20210317093133600](../images/image-20210317093133600.png)
 
 2. 在代码中将资源打包
 
@@ -58,7 +58,7 @@
    }
    ```
 
-加载AssetBundle：
+##### 加载AssetBundle：
 
 ```c#
 public class LoadFromFileExample : MonoBehaviour {

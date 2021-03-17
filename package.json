@@ -1,0 +1,15 @@
+{
+  "name": "mynotes",
+  "version": "1.0.0",
+  "description": "各种笔记和测试",
+  "main": " ",
+  "scripts": {
+    "publishPage": "gitee-publish -c 1739357748@qq.com -p lpg123456 -r myNotes -o e:/bundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/lupengge/myNotes.git"
+  },
+  "author": "lpg",
+  "license": "ISC"
+}

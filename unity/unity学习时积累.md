@@ -10,10 +10,72 @@
 
 #### 加载资源的方式
 
-- 只能在editor中使用的AssetDatabase
-- AssetBundle类
+- 只能在editor中使用的AssetDatabase，`AssetDatabase.LoadAssetAtPath<GameObject>("path");`
+
 - Resources.load()方法，读取在Resource文件夹下的文件
-- UnityWebRequest
+
+  ```c#
+  //加载Assets/Resources文件夹下的资源
+  Resources.Load("文件的路径")
+  ```
+
+- UnityWebRequest，加载本地和网络资源
+
+  ```c#
+  
+  ```
+
+#### AssetBundle的使用
+
+[官方文档](https://docs.unity3d.com/cn/2021.1/Manual/AssetBundlesIntro.html)
+
+##### 打包AssetBundle：
+
+1. 在需要打包的资Inspector窗口下方的“AssetBundle”属性中选择一个AssetBundle名称；<br>你甚至可以选择一个文件夹然后选择他的assetBundle属性<br>创建新的AssetBundle属性时可以用“/”,表示创建目录，但是目录不能重复，你可以给文件自定义后缀但是，想打包进AssetBundle中的二进制文件，文件名的后缀必须为“.bytes”
+
+   ![image-20210317093133600](C:\Users\Administrator\Desktop\note\myNotes\images\image-20210317093133600.png)
+
+2. 在代码中将资源打包
+
+   ```c#
+   //方法必须是public static的，否则不能添加菜单
+   //脚本路径要放到“Asset/Editor”路径下，否则包没有MenuItem的引用
+   [MenuItem("Tools/Build")]//在editor菜单栏的“Tools”下创建一个Build按钮
+   public static void Build()
+   {
+     /*
+   制作AssetBundle
+   第一个参数字符串类型，存放AssetBundles的路径，可以是电脑磁盘上的任意路径
+   
+   第二个参数，打包的方式
+   BuildAssetBundleOptions.None：使用LZMA算法压缩，压缩的包更小，但是加载时间更长。使用之前需要整体解压。一旦被解压，这个包会使用LZ4重新压缩。使用资源的时候不需要整体解压。在下载的时候可以使用LZMA算法，一旦它被下载了之后，它会使用LZ4算法保存到本地上。
+   BuildAssetBundleOptions.UncompressedAssetBundle：不压缩，包大，加载快
+   BuildAssetBundleOptions.ChunkBasedCompression：使用LZ4压缩，压缩率没有LZMA高，但是我们可以加载指定资源而不用解压全部。
+   
+   第三个参数，目标构建平台，能选其他操作系统。
+   */
+     BuildPipeline.BuildAssetBundles("E:/", BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+   }
+   ```
+
+加载AssetBundle：
+
+```c#
+public class LoadFromFileExample : MonoBehaviour {
+    function Start() {
+      //myLoadedAssetBundle是一个包含AssetBundle文件中所有资源的一个Object数组
+        var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myassetBundle"));
+        if (myLoadedAssetBundle == null) {
+            Debug.Log("Failed to load AssetBundle!");
+            return;
+        }
+        var prefab = myLoadedAssetBundle.LoadAsset<GameObject>("MyObject");
+        Instantiate(prefab);
+    }
+}
+```
+
+
 
 ####  实例化预制件示例
 
@@ -36,6 +98,8 @@ public class InstantiationExample : MonoBehaviour
 也能用`Resources.Load();`加载在项目中的资源然后进行类型转换成GameObject类型
 
  ==在拖入inspector进行赋值时，可以将含有某个类型的GameObject类型赋值给相应的类型==
+
+
 
 #### 添加标准资源到项目中
 

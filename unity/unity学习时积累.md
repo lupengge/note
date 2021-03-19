@@ -44,6 +44,8 @@
 
 #### 打包AssetBundle：
 
+​	你可以使用AssetBundles Blower包直接进行可视化的管理，在Window》AssetBundles窗口中的“Inspect”选项卡下添加资源文件或资源文件夹。或者你也可以按照下面的方法，自己写一个editor菜单栏中的按钮，自己用代码build AssetBundle
+
 1. 在需要打包的资Inspector窗口下方的“AssetBundle”属性中选择一个AssetBundle名称；<br>你甚至可以选择一个文件夹然后选择他的assetBundle属性<br>创建新的AssetBundle属性时可以用“/”,表示创建目录，但是目录不能重复，<br>你可以给文件自定义后缀<br>但是，想打包进AssetBundle中的二进制文件，文件名的后缀必须为“.bytes”
 
    ![image-20210317093133600](../images/image-20210317093133600.png)
@@ -386,6 +388,8 @@ public class DIYButton : Button
 ​	其实除了unity editor中能直接创建的几个基本游戏对象的mesh外，我们还能在代码中自定义我们的mesh，然后将他们加载出来。
 
 ​	vertices (顶点，存放mesh中的顶点是一个三维向量的数组)、triangles(三角形，按照顺序存放顶点的索引，是一个整型数组，每三个组成一个三角形)。至少赋值这两个属性才能将这个mesh显示出来。
+
+[一个将这个的blog](https://blog.csdn.net/liu943367080/article/details/95596133)
 
 ```c#
 //创建一个mesh对象

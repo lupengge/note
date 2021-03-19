@@ -4,11 +4,11 @@
 
 各种笔记
 
-[Unity积累](#/unity/unity学习时积累)
+[Unity积累](/mynotes/#/unity/unity学习时积累)
 
-[UIToolKit](#/unity/UI/UIToolKit)
+[UIToolKit](/mynotes/#/unity/UI/UIToolKit)
 
-[C#积累](#/unity/Csharp知识点)
+[C#积累](/mynotes/#/unity/Csharp知识点)
 
-[一个ui练习](#/unity/搭建一个目录树)
+[一个ui练习](/mynotes/#/unity/搭建一个目录树)
 

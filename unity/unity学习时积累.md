@@ -1,7 +1,7 @@
 # unity学习时积累
 
 ## 资源
-
+  unity移动项目时必要的文件夹“Assets、Packages、ProjectSettings”
 ### StreamingAssets文件夹
 
 ​	unity中的资源在打包生成可执行文件的时候都会进行压缩，但是StreamingAssets文件夹中的文件并不会进行压缩，编码格式并不会发生改变。获取这个文件夹的位置：`Application.streamingAssetsPath`,想获取其中的文件可以用system.io下的File或文件流等。

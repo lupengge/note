@@ -10,6 +10,7 @@ app.use('/', (req, res, next) => {
 	res.status(200).sendFile(path.resolve(__dirname, 'index.html'))
 })
 
+
 io.on('connection', client => {
 	console.log(client.id, '=======================')
 	client.on('channel', data => {

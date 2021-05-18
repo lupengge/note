@@ -12,6 +12,7 @@
     
 - ### js相关
     - <a href="/myNotes/#/js相关/各种js包">js包总结</a>
+    - <a href="/myNotes/#/js相关/提纲">考试提纲</a>
 
 
 

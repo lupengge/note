@@ -11,3 +11,5 @@
 12. 改动项目时自动跟新gitee page——gitee-publish
 13. 火星坐标转换———gcoord.js
 14. xml转json——x2js
+15. 动画过渡——tween.js
+16. 添加各种底图——@dvgis/cesium-map

@@ -9,5 +9,6 @@
     "django-txt",
     "sql",
     "vue"
-  ]
+  ],
+  "git.postCommitCommand": "push"
 }

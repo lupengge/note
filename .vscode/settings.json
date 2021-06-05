@@ -10,5 +10,7 @@
     "sql",
     "vue"
   ],
-  "git.postCommitCommand": "push"
+  "git.postCommitCommand": "push",
+  "python.languageServer": "Pylance",
+  "prettier.useTabs": true
 }

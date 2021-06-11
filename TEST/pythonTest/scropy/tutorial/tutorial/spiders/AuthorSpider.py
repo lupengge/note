@@ -2,10 +2,8 @@ from email.policy import default
 from scrapy import http
 import scrapy
 
-# ---------------------------------------------------------------------------- #
-#           命令：scrapy crawl author -O quotes-humor.json -a tag=humor         #
-# ---------------------------------------------------------------------------- #
 
+#命令：scrapy crawl author -O quotes-humor.json -a tag=humor -s LOG_FILE=all.log
 
 class AuthorSpider(scrapy.Spider):
     name = "author"

@@ -1,11 +1,14 @@
-from operator import index
+from ast import Num
+from math import floor
 from scrapy import http
 import scrapy
 import pandas as pd
+from alive_progress import alive_bar
 
 
 class companySpider(scrapy.Spider):
     name = "companyInfo"
+    compantNames=[]
     headers={
             'authority': 'tongji.qichacha.com',
             'pragma': 'no-cache',
@@ -28,9 +31,11 @@ class companySpider(scrapy.Spider):
         }
     def start_requests(self):
         table = pd.read_excel(r'C:\Users\lpg\Desktop\myNotes\TEST\pythonTest\scropy\tutorial\tutorial\法人.xls')
-        compantNames = list(table['name'])
-        for name in compantNames:
-            yield scrapy.Request(url='https://www.qcc.com/web/search?key='+name,headers=self.headers,callback=self.parse,method='GET')
+        self.compantNames = list(table['name'])
+        with alive_bar(len(self.compantNames)) as bar:
+            for name in self.compantNames:
+                bar()
+                yield scrapy.Request(url='https://www.qcc.com/web/search?key='+name,headers=self.headers,callback=self.parse,method='GET')
 
     def parse(self, response: http.Response, **kwargs):
         response.request
@@ -41,7 +46,7 @@ class companySpider(scrapy.Spider):
 
     def parse_company(self,response:http.Response):
 
-        def extract_with_css(query):
+        def extract_with_css():
             trs=response.css('table.ntable tr')
             out={}
             for trSelector in trs:
@@ -52,7 +57,9 @@ class companySpider(scrapy.Spider):
                         out[name]=td.rstrip().lstrip()
                     else:
                         name=td.rstrip().lstrip()
-            return out
-            
 
-        yield extract_with_css('组织机构代码')
+            return out
+        out=extract_with_css()
+        
+        
+        yield out

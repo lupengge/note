@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>绘制图片</title>
+  </head>
+  <body>
+    <canvas id="cavsElem" width="800" height="800">
+      你的浏览器不支持canvas，请升级浏览器
+    </canvas>
+    <script type="text/javascript">
+      //获得画布
+      var canvas = document.getElementById("cavsElem");
+      
+    canvas.height=512; // 初始化canvas的高度
+    canvas.width=512; // 初始化canvas的宽度
+    var context=canvas.getContext('2d');
+    let num = 0 //  这里累计平移了多少
+    let time= null
+    context.fillRect(num,10,100,100) // 默认画出一个矩形
+      //设置画布边框
+      canvas.style.border = "1px solid #000";
+      //获取上下文
+      var context = canvas.getContext("2d");
+      //创建图片对象
+      var img = new Image();
+      var img2 = new Image();
+      img2.src =
+        "https://api.mapbox.com/styles/v1/zouyaoji/ckd49hwdn0u641irz36komsmt/tiles/256/0/0/0@2x?access_token=pk.eyJ1Ijoiem91eWFvamkiLCJhIjoiY2tjdjlha3pzMDIxeDJ1bWxhaWNnaGNkdSJ9.WaGuuQT8YcWTPx3KNQfF7A";
+      //设置图片路径
+      img.src =
+        "http://ecn.t2.tiles.virtualearth.net/tiles/a13212223200132.jpeg?n=z&g=10510";
+      //当页面加载完成使用此图片
+      img2.onload = function () {
+        //使用canvas绘制图片
+        setInterval(()=>{
+          context.drawImage(img2, 0, 0);
+        },1)
+        
+      };
+      console.log(context);
+    </script>
+  </body>
+</html>

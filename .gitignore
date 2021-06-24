@@ -24,3 +24,5 @@
 # TEST/testJS/test/node_modules
 */**/node_modules 
 # 匹配所有的node_modules文件夹
+TEST/pythonTest/抠图/dist
+TEST/pythonTest/抠图/build

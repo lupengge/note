@@ -26,3 +26,5 @@
 # 匹配所有的node_modules文件夹
 TEST/pythonTest/抠图/dist
 TEST/pythonTest/抠图/build
+
+**/__pycache__

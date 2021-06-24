@@ -1,10 +1,13 @@
 import os
+import threading
+from time import time
 import paddlehub as hub
 import json
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from alive_progress import alive_bar
+from sqlalchemy import false, true
 
 
 def cssColorString2list(string: str) -> list:
@@ -45,8 +48,27 @@ for direction in dirs:
 colorStr = input('切换背景色为(cssString):')
 color = cssColorString2list(colorStr)
 
+print('正在抠图:')
+global results
 # 3.抠图
+calEnd=false
+
+def printWait():
+  timeStart = time()
+  while calEnd:
+    currentTime=time()
+    str=['.' for i in range(np.math.floor(currentTime-timeStart)%12)]
+  print(''.join(str),flush=true)
+
+calThread = threading.Thread(target=printWait)
+calThread.run()
+
+
 results = humanSeg.segmentation(data={"image": files})
+calEnd=true
+
+
+
 
 with alive_bar(len(files)) as bar :
 

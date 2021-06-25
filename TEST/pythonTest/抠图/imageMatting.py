@@ -1,6 +1,7 @@
+from logging import exception
 import os
 import threading
-from time import time
+import time
 import paddlehub as hub
 import json
 import numpy as np
@@ -36,68 +37,82 @@ class NpEncoder(json.JSONEncoder):
 # 1.加载模型
 humanSeg = hub.Module(name="deeplabv3p_xception65_humanseg")
 
+
 # 2.指定待抠图图片目录
 path = input('图片所在文件夹：')
 
 files = []
 
 dirs = os.listdir(path)
+
+
 for direction in dirs:
-    files.append(path +'\\'+direction)
+    if os.path.isfile(os.path.join(path, direction)):
+        files.append(path + '\\'+direction)
 
 colorStr = input('切换背景色为(cssString):')
+colorStr = colorStr if colorStr != '' else '#000000'
 color = cssColorString2list(colorStr)
 
 print('正在抠图:')
 global results
 # 3.抠图
-calEnd=false
+calEnd = false
 
-def printWait():
-  timeStart = time()
-  while calEnd:
-    currentTime=time()
-    str=['.' for i in range(np.math.floor(currentTime-timeStart)%12)]
-  print(''.join(str),flush=true)
 
-calThread = threading.Thread(target=printWait)
+def printWait(message):
+    timeStart = time.time()
+    while not calEnd:
+        currentTime = time.time()
+        opt = ['|', '/', '-', '\\']
+        str_ = opt[np.math.floor(currentTime-timeStart) % 4]
+        print(f'\r{message}：{str_}', flush=true, end="")
+        time.sleep(0.5)
+
+
+calThread = threading.Thread(target=printWait, args=('正在抠图中',))
 calThread.run()
 
-
 results = humanSeg.segmentation(data={"image": files})
-calEnd=true
+calEnd = true
 
+print('正在保存文件:')
+with alive_bar(len(files)) as bar:
 
+    for i, file in enumerate(files):
 
+        extName = file.split('.')[-1]
 
-with alive_bar(len(files)) as bar :
+        try:
+            img = mpimg.imread(file, format=extName)
+        except SyntaxError:
+            img = mpimg.imread(file, format='jpeg')
 
-  for i, file in enumerate(files):
+        human_range = results[i]['data']
 
-      img = mpimg.imread(file)
+        human_range = [[1 if cel > 0 else 0 for cel in row]
+            for row in human_range]
+        try:
+            human_range = np.array(human_range).transpose()
+            r = img[:, :, 0]*human_range
+            g = img[:, :, 1]*human_range
+            b = img[:, :, 2]*human_range
+        except ValueError:
+            human_range = np.array(human_range).transpose()
+            r = img[:, :, 0]*human_range
+            g = img[:, :, 1]*human_range
+            b = img[:, :, 2]*human_range
 
-      human_range = results[i]['data']
+        result = [[[r[i, j], g[i, j], b[i, j]] if r[i, j] > 0 else color for j in range(
+            r.shape[1])]for i in range(r.shape[0])]
 
-      human_range = [[1 if cel > 0 else 0 for cel in row]for row in human_range]
-      try:
-        human_range=np.array(human_range).transpose()
-        r = img[:, :, 0]*human_range
-        g = img[:, :, 1]*human_range
-        b = img[:, :, 2]*human_range
-      except ValueError:
-        human_range=np.array(human_range).transpose()
-        r = img[:, :, 0]*human_range
-        g = img[:, :, 1]*human_range
-        b = img[:, :, 2]*human_range
+        # 展示预测结果图片
+        result = np.array(result)
 
-      result = [[[r[i, j], g[i, j], b[i, j]] if r[i, j] > 0 else color for j in range(r.shape[1])]for i in range(r.shape[0])]
-
-      # 展示预测结果图片
-      result = np.array(result)
-
-      plt.imshow(result)
-      plt.axis('off')
-      if not os.path.exists(path+'/output/'):
-        os.mkdir(path+'/output/')
-      plt.imsave(path+'/output/'+dirs[i], np.uint8(result))
-      bar()
+        plt.imshow(result)
+        plt.axis('off')
+        if not os.path.exists(path+'/output/'):
+            os.mkdir(path+'/output/')
+            
+        plt.imsave(path+'/output/'+dirs[i], np.uint8(result))
+        bar()

@@ -4216,22 +4216,43 @@ imgs = document.querySelectorAll('img')
 
 promises = []
 imgs.forEach((imgEle, index) => {
-	promises.push(fetch(imgEle.src).then(response => response.blob()).then((blob) => {
-		return new Promise(() => {
-			zip.file(index + '.png', blob)
-		})
+	let extendName
+	let src=imgEle.src;
+	try{
+		let pro=fetch(src).then(response => response.blob()).then((blob)=>{
+			return new Promise((resolve, reject) => {
+				let reader=new FileReader()
+				reader.onload=(e)=>{
+					let dataUrl=e.target.result
+					try{
+						
+						ex=/\/(\w*);/g
+						extendName ='.'+ex.exec(dataUrl)[1]
 
-	}))
+						zip.file(index + extendName, blob)
+					}
+					catch(err){
+						console.log(dataUrl);
+						zip.file(index + '.svg', blob)
+					}
+					resolve('adf')
+				}
+				reader.readAsDataURL(blob)
+			})
+		})
+		promises.push(pro)
+	}catch(e){
+		console.log(src);
+	}
 })
-setTimeout((values) => {
+Promise.all(promises).then((a)=>{
+	console.log(a);
+	//将zip对象转成blob对象然后使用fileReader将blob转换成dataURL，然后创建虚拟的a标签下载文件
 	zip.generateAsync({
 		type: "blob"
 	}).then(function(content) {
-		// see FileSaver.js
-
 		var reader = new FileReader();
 		reader.addEventListener("loadend", function() {
-
 			var pom = document.createElement('a');
 			pom.setAttribute('href', reader.result);
 			pom.setAttribute('download', 'images.zip');
@@ -4245,5 +4266,4 @@ setTimeout((values) => {
 		});
 		reader.readAsDataURL(content);
 	});
-
-},10000);
+})

@@ -8,11 +8,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dark.css">
+  <style>
+    .head{
+      position: fixed;
+      top: 0;
+      margin: 0;
+      height: 50px;
+      width: 100%;
+      background-color: #2B2B2B;
+      z-index: 1;
+    }
+    .sidebar{
+      top:52px !important;
+    }
+    .menutItem{
+      color: wheat;
+      font-size: 22px;
+      text-align: center;
+      line-height: 50px;
+      display: inline-block;
+      margin-inline: 10px;
+      min-width: 80px;
+      cursor:pointer;
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <a href="#">首页</a>
-  </nav>
+  <div class="head">
+    <div class="menutItem"></div>
+    <div class="menutItem">
+      <span onclick="location='#'">首页</span>
+    </div>
+    
+  </div>
   <div id="app"></div>
   <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
@@ -21,8 +49,8 @@
     window.$docsify = {
       name: '',
       repo: '',
-      //loadNavbar: true,
-
+      // loadNavbar: true,
+      notFoundPage:true,
       search: {
         maxAge: 86400000, // 过期时间，单位毫秒，默认一天
         paths: [

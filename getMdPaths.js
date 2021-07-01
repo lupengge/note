@@ -10,6 +10,8 @@ function getAllMd(parentDir){
   }else{
     childDirs = fs.readdirSync(parentDir)
     for(let dir of childDirs){
+      if(dir=="node_modules")continue
+
       let state=fs.lstatSync(path.join(parentDir,dir))
       if(state.isDirectory()){
         
@@ -30,7 +32,7 @@ for(let i of out){
   a+=`[${i.name}](${i.path})\n`
 }
 
-fs.writeFileSync('./res.txt',a)
+fs.writeFileSync('./res1.txt',a)
 
 
 

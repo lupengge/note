@@ -1,20 +1,3 @@
-# myNotes
-
-#### 介绍
-
-* ### unity
-    * [Unity积累](/unity/unity学习时积累)
-    * [UIToolKit](/unity/UI/UIToolKit)
-    * [C#积累](/unity/Csharp知识点)
-    * [一个ui练习](/unity/搭建一个目录树)
-* ### js相关
-    * [js包总结](/js相关/各种js包)
-    * [考试提纲](/js相关/提纲)
-* ### git相关
-    * [git修改用户信息](/Git相关/Git用户名错误)
-
-
-
 [问题](/css相关/问题)
 [Git用户名错误](/Git相关/Git用户名错误)
 [API总结](/js相关/API总结)

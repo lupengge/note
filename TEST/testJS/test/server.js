@@ -26,3 +26,18 @@ io.on('connection', client => {
 server.listen(3000, () => {
 	console.log("The service listening on 3000 port")
 })
+
+
+
+
+Object.defineProperties(tool, {
+	type: {
+		set: function (newVal) {
+			this._type = newVal;
+			console.log(newVal)
+		},
+		get: function () {
+			return this._type
+		}
+	}
+})

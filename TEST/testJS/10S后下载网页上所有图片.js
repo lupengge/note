@@ -4228,14 +4228,13 @@ imgs.forEach((imgEle, index) => {
 						
 						ex=/\/(\w*);/g
 						extendName ='.'+ex.exec(dataUrl)[1]
-
 						zip.file(index + extendName, blob)
 					}
 					catch(err){
 						console.log(dataUrl);
 						zip.file(index + '.svg', blob)
 					}
-					resolve('adf')
+					resolve('')
 				}
 				reader.readAsDataURL(blob)
 			})
@@ -4267,3 +4266,5 @@ Promise.all(promises).then((a)=>{
 		reader.readAsDataURL(content);
 	});
 })
+
+

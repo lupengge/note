@@ -1,4 +1,4 @@
-from logging import exception
+
 import os
 import threading
 import time
@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from alive_progress import alive_bar
-from sqlalchemy import false, true
 
 
 def cssColorString2list(string: str) -> list:
@@ -57,16 +56,16 @@ color = cssColorString2list(colorStr)
 print('正在抠图:')
 global results
 # 3.抠图
-calEnd = false
+calEnd = False
 
 
 def printWait(message):
     timeStart = time.time()
-    while not calEnd:
+    while calEnd:
         currentTime = time.time()
         opt = ['|', '/', '-', '\\']
         str_ = opt[np.math.floor(currentTime-timeStart) % 4]
-        print(f'\r{message}：{str_}', flush=true, end="")
+        print(f'\r{message}：{str_}', flush=True, end="")
         time.sleep(0.5)
 
 
@@ -74,7 +73,7 @@ calThread = threading.Thread(target=printWait, args=('正在抠图中',))
 calThread.run()
 
 results = humanSeg.segmentation(data={"image": files})
-calEnd = true
+calEnd = True
 
 print('正在保存文件:')
 with alive_bar(len(files)) as bar:

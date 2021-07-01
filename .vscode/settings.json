@@ -12,5 +12,5 @@
   ],
   "git.postCommitCommand": "push",
   "python.languageServer": "Pylance",
-  "prettier.useTabs": true
+  "prettier.useTabs": true,
 }

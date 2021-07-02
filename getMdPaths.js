@@ -32,7 +32,7 @@ for(let i of out){
   a+=`[${i.name}](${i.path})\n`
 }
 
-fs.writeFileSync('./res1.txt',a)
+fs.writeFileSync('./res.txt',a)
 
 
 

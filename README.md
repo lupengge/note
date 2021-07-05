@@ -6,10 +6,9 @@
 [Git用户名错误](/Git相关/Git用户名错误.md)  
 ### css相关
 [问题](/css相关/问题.md)  
-### electron相关
-[通信](/js相关/electron相关/通信.md)  
 ### js相关
 [API总结](/js相关/API总结.md)  
+[es6机翻](/js相关/es6机翻.md)  
 [vuex笔记](/js相关/vuex笔记.md)  
 [webWorker](/js相关/webWorker.md)  
 [各种js包](/js相关/各种js包.md)  

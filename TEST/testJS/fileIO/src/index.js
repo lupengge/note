@@ -104,3 +104,7 @@ const measureDoingSomething = () => {
   console.timeEnd('程序耗时')
 }
 measureDoingSomething()
+
+module.exports={
+  measureDoingSomething
+}

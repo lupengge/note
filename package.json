@@ -1,10 +1,11 @@
 {
-  "name": "mynotes",
+  "name": "my-notes",
   "version": "1.0.0",
   "description": "各种笔记和测试",
   "main": " ",
   "scripts": {
-    "publishPage": "gitee-publish -c 1739357748@qq.com -p lpg123456 -r myNotes -o e:/bundle"
+    "publishPage": "gitee-publish -c 1739357748@qq.com -p lpg123456 -r myNotes -o e:/bundle",
+    "updateContents":"node getMdPaths.js"
   },
   "repository": {
     "type": "git",

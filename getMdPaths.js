@@ -62,7 +62,7 @@ content[1] = a;
 
 fs.writeFileSync('README.md', content.join('<!-- 所有文档 -->'), { flag: "w+" })
 
-console.log('更新首页readme成功')
+console.log('\33[32;4m更新首页readme成功')
 
 let htmlContent = fs.readFileSync('index.html',{encoding:"utf-8"})
 
@@ -71,7 +71,7 @@ let ex = /paths\: \[(.*)\]\,/gs
 let htmlResult= htmlContent.replace( ex,`paths\: \['${out.map(a=>a.path).join("','")}'\]\,`)
 
 fs.writeFileSync('index.html',htmlResult)
-console.log('更新首页html成功')
+console.log('更新首页html成功\x1b[0m')
 
 
 

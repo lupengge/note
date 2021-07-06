@@ -45,7 +45,8 @@
         "API总结": 3,
         "vuex笔记": 4,
         "webWorker": 5,
-        "监听Dom和属性": 0
+        "监听Dom和属性": 0,
+        "es6机翻": 6
       }
     },
     "python相关": {
@@ -62,6 +63,12 @@
     },
     "unity": {
       "name": "unity",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "dist": {
+      "name": "dist",
       "isOrdered": true,
       "folders": {},
       "files": {}

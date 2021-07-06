@@ -50,30 +50,28 @@ for (let i of out) {
     a += `### ${i.parent}\n`
     lastParentName = i.parent;
   }
-
-  let path = i.path.substr(__dirname.length).replace(/\\/g, '/')
-  a += `[${name}](${path})  \n`
+  i.path = i.path.substr(__dirname.length).replace(/\\/g, '/')
+  a += `[${name}](${i.path})  \n`
 }
 
-// // fs.writeFileSync('./res.txt',a)
+// fs.writeFileSync('./res.txt',a)
 
-// let content = fs.readFileSync('./README.md', 'utf-8')
-// content = content.split("<!-- 所有文档 -->")
-// content[1] = a;
+let content = fs.readFileSync('./README.md', 'utf-8')
+content = content.split("<!-- 所有文档 -->")
+content[1] = a;
 
-// fs.writeFileSync('README.md', content.join('<!-- 所有文档 -->'), { flag: "w+" })
+fs.writeFileSync('README.md', content.join('<!-- 所有文档 -->'), { flag: "w+" })
 
-// console.log('更新首页成功')
+console.log('更新首页readme成功')
 
 let htmlContent = fs.readFileSync('index.html',{encoding:"utf-8"})
 
-console.log(htmlContent);
-
 let ex = /paths\: \[(.*)\]\,/gs
 
-let paths_ = ex.exec(htmlContent)
+let htmlResult= htmlContent.replace( ex,`paths\: \['${out.map(a=>a.path).join("','")}'\]\,`)
 
-console.log(paths_);
+fs.writeFileSync('index.html',htmlResult)
+console.log('更新首页html成功')
 
 
 

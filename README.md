@@ -5,6 +5,7 @@
 ### Git相关
 [Git用户名错误](/Git相关/Git用户名错误.md)  
 ### css相关
+[选择器](/css相关/选择器.md)  
 [问题](/css相关/问题.md)  
 ### js相关
 [API总结](/js相关/API总结.md)  

@@ -14,3 +14,4 @@
 14. 动画过渡——tween.js
 15. 添加各种底图——@dvgis/cesium-map
 16. wlt和geojson转换——terraformer.js
+17. 网页中markdown文档编辑器——vditor

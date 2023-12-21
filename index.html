@@ -53,7 +53,7 @@
       notFoundPage:true,
       search: {
         maxAge: 86400000, // 过期时间，单位毫秒，默认一天
-        paths: ['/Git相关/Git用户名错误.md','/css相关/选择器.md','/css相关/问题.md','/js相关/API总结.md','/js相关/es6机翻.md','/js相关/vuex笔记.md','/js相关/webWorker.md','/js相关/各种js包.md','/js相关/提纲.md','/js相关/监听Dom和属性.md','/README.md','/_404.md','/unity/Csharp知识点.md','/unity/UIToolKit.md','/unity/unity学习时积累.md','/unity/包说明.md','/unity/插件mirror的使用.md','/unity/搭建一个目录树.md','/unity/往窗口中拖文件/README.md'], // or 'auto'
+        paths: ['/Git相关/Git用户名错误.md','/css相关/选择器.md','/css相关/问题.md','/js相关/API总结.md','/js相关/es6机翻.md','/js相关/js中的iterator.md','/js相关/js技巧终结.md','/js相关/vuex笔记.md','/js相关/webWorker.md','/js相关/各种js包.md','/js相关/提纲.md','/js相关/监听Dom和属性.md','/README.md','/_404.md','/unity/Csharp知识点.md','/unity/UIToolKit.md','/unity/unity学习时积累.md','/unity/包说明.md','/unity/插件mirror的使用.md','/unity/搭建一个目录树.md','/unity/往窗口中拖文件/README.md','/读书笔记/影响力.md'], // or 'auto'
         placeholder: '请输入关键词',
   
         noData: '找不到结果!',
@@ -66,7 +66,11 @@
         // 避免搜索索引冲突
         // 同一域下的多个网站之间
         namespace: 'website-1',
-  
+        auto2top: true,
+        pagination: {
+          previousText: '上一章节',
+          nextText: '下一章节',
+        }
         // 您可以提供一个正则表达式来匹配前缀。在这种情况下，
         // 匹配到的字符串将被用来识别索引
         //pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
@@ -76,5 +80,8 @@
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 </body>
 </html>

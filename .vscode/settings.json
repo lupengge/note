@@ -13,4 +13,5 @@
   "git.postCommitCommand": "push",
   "python.languageServer": "Pylance",
   "prettier.useTabs": true,
+  "dotnet.defaultSolution": "TEST/testC#/testApp/testApp.sln",
 }

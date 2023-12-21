@@ -36,7 +36,7 @@ function getAllMd(parentDir) {
 }
 
 let out = getAllMd(__dirname)
-
+console.log(out);
 
 out = out.sort((a,b)=>{
   return a.parent[0].charCodeAt()-b.parent[0].charCodeAt()

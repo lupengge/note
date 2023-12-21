@@ -10,6 +10,8 @@
 ### js相关
 [API总结](/js相关/API总结.md)  
 [es6机翻](/js相关/es6机翻.md)  
+[js中的iterator](/js相关/js中的iterator.md)  
+[js技巧终结](/js相关/js技巧终结.md)  
 [vuex笔记](/js相关/vuex笔记.md)  
 [webWorker](/js相关/webWorker.md)  
 [各种js包](/js相关/各种js包.md)  
@@ -27,6 +29,8 @@
 [搭建一个目录树](/unity/搭建一个目录树.md)  
 ### 往窗口中拖文件
 [README](/unity/往窗口中拖文件/README.md)  
+### 读书笔记
+[影响力](/读书笔记/影响力.md)  
 <!-- 所有文档 -->
 
 

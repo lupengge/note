@@ -17,7 +17,7 @@
 [各种js包](/js相关/各种js包.md)  
 [提纲](/js相关/提纲.md)  
 [监听Dom和属性](/js相关/监听Dom和属性.md)  
-### myNotes
+### note
 [README](/README.md)  
 [_404](/_404.md)  
 ### unity
